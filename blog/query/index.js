@@ -39,11 +39,13 @@ app.post('/events', (req, res) => {
       const commentId = data.id;
       const content = data.content;
       postId = data.postId;
+      const status = data.status;
 
       const post = posts[postId];
       post.comments.push({
         id: commentId,
         content,
+        status,
       });
       break;
     default:
@@ -63,5 +65,5 @@ app.get('/posts', (req, res) => {
 
 
 app.listen(4002, () => {
-  console.log('listening on 4002');
+  console.log('Query listening on 4002');
 });
