@@ -27,7 +27,7 @@ const handleEvent = (type, data) => {
   } else if (type === 'CommentCreated') {
     const { id, content, postId, status } = data;
     const post = posts[postId];
-    posts.comments.push({ id, content, status });
+    post.comments.push({ id, content, status });
 
   } else if (type === 'CommentUpdated' || type === 'CommentModerated') {
     const { id, content, postId, status } = data;
@@ -49,6 +49,7 @@ app.get('/posts', (req, res) => {
 
 
 app.post("/events", (req, res) => {
+  console.log("Received Event:", req.body);
   const { type, data } = req.body;
   handleEvent(type, data);
   res.send({});
@@ -68,4 +69,5 @@ app.listen(4002, async () => {
   } catch (error) {
     console.log(error.message);
   };
+
 });
