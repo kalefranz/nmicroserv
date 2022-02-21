@@ -14,5 +14,5 @@ export class DatabaseConnectionError extends CustomError {
     return [
       { message: this.reason }
     ];
-  }
+  };
 };
