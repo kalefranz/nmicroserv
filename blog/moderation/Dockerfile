@@ -1,4 +1,4 @@
-# docker image build -t kalefranz/posts:0.1.0 .
+# docker image build -t kalefranz/moderation:0.1.0 .
 FROM node:alpine
 
 WORKDIR /app

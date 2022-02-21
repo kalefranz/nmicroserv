@@ -18,45 +18,28 @@ const posts = {};
 // }
 
 
-app.post('/events', (req, res) => {
-  const { type, data } = req.body;
-  
-  let postId;
+const handleEvent = (type, data) => {
+  if (type === 'PostCreated') {
+    const { id, title } = data;
+    posts[id] = { id, title, comments: [] };
 
-  switch (type) {
-    case 'PostCreated':
-      // save the post
-      postId = data.id;
-      const title = data.title;
-      posts[postId] = {
-        id: postId,
-        title,
-        comments: [],
-      };
-      break;
-    case 'CommentCreated':
-      // save the comment with the associated post
-      const commentId = data.id;
-      const content = data.content;
-      postId = data.postId;
-      const status = data.status;
+  } else if (type === 'CommentCreated') {
+    const { id, content, postId, status } = data;
+    const post = posts[postId];
+    posts.comments.push({ id, content, status });
 
-      const post = posts[postId];
-      post.comments.push({
-        id: commentId,
-        content,
-        status,
-      });
-      break;
-    default:
-      const msg = `Cannot handle event of type: ${type}`;
-      console.error(msg);
-      res.statusCode(400).send(msg);
+  } else if (type === 'CommentUpdated') {
+    const { id, content, postId, status } = data;
+    const post = posts[postId];
+    const comment = post.comments.find(comment => comment.id === id);
+
+    comment.status = status;
+    comment.content = content;
+
+  } else {
+    console.log('Unknown Event:', type);
   };
-
-  res.send({});
-
-});
+};
 
 
 app.get('/posts', (req, res) => {
@@ -64,6 +47,24 @@ app.get('/posts', (req, res) => {
 });
 
 
-app.listen(4002, () => {
+app.post("/events", (req, res) => {
+  const { type, data } = req.body;
+  handleEvent(type, data);
+  res.send({});
+});
+
+
+app.listen(4002, async () => {
   console.log('Query listening on 4002');
+
+  try {
+    const res = await axios.get('http://event-bus-srv:4005/events');
+
+    for (let event of res.data) {
+      console.log("Processing event:", event.type);
+      handleEvent(event.type, event.data);
+    }
+  } catch (error) {
+    console.log(error.message);
+  };
 });
