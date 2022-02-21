@@ -1,5 +1,5 @@
 VERSION=0.1.1
-services='comments event-bus moderation posts query'
+services='client comments event-bus moderation posts query'
 for service in $services
 do
 	cd $service
