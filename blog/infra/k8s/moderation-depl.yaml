@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: moderation
-          image: kalefranz/moderation:0.1.0
+          image: kalefranz/moderation:0.0.10
 
 ---
 apiVersion: v1

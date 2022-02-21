@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const axios = require('axios');
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,7 +29,7 @@ const handleEvent = (type, data) => {
     const post = posts[postId];
     posts.comments.push({ id, content, status });
 
-  } else if (type === 'CommentUpdated') {
+  } else if (type === 'CommentUpdated' || type === 'CommentModerated') {
     const { id, content, postId, status } = data;
     const post = posts[postId];
     const comment = post.comments.find(comment => comment.id === id);
@@ -37,7 +38,7 @@ const handleEvent = (type, data) => {
     comment.content = content;
 
   } else {
-    console.log('Unknown Event:', type);
+    console.log('Unknown Event:', type, data);
   };
 };
 

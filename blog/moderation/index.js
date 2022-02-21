@@ -8,8 +8,8 @@ app.use(bodyParser.json());
 
 
 app.post('/events', async (req, res) => {
+  console.log('ReceivedEvent', req.body);
   const { type, data } = req.body;
-  console.log('ReceivedEvent', type);
 
   if (type === 'CommentCreated') {
     const status = data.content.includes('orange') ? 'rejected' : 'approved';
@@ -24,7 +24,7 @@ app.post('/events', async (req, res) => {
       },
     });
 
-    console.log('CommentCreated:', data.id);
+    console.log('CommentModerated:', data);
   };
 
   res.send({});
