@@ -1,9 +1,8 @@
-# docker image build -t kalefranz/auth:0.0.1 .
 FROM node:alpine
 
 WORKDIR /app
-COPY package.json ./
-RUN npm install
-COPY ./ ./
+COPY package.json .
+RUN npm install --only=prod
+COPY . .
 
 CMD ["npm", "start"]

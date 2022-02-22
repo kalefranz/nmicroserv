@@ -3,12 +3,12 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/app/*.yaml
+      - ./infra/k8s/*
 build:
   local:
     push: false
   artifacts:
-    - image: kalefranz/auth
+    - image: cygnetops/auth
       context: auth
       docker:
         dockerfile: Dockerfile
@@ -16,7 +16,7 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: kalefranz/client
+    - image: cygnetops/ticketing-client
       context: client
       docker:
         dockerfile: Dockerfile
