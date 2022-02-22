@@ -7,20 +7,28 @@ deploy:
 build:
   local:
     push: false
-  artifacts:
-    - image: cygnetops/auth
-      context: auth
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: 'src/**/*.ts'
-            dest: .
-    - image: cygnetops/ticketing-client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.js'
-            dest: .
+  # artifacts:
+  #   - image: cygnetops/auth
+  #     context: auth
+  #     # docker:
+  #     #   dockerfile: Dockerfile
+  #     # sync:
+  #     #   manual:
+  #     #     - src: 'src/**/*.ts'
+  #     #       dest: .
+  #   - image: cygnetops/ticketing-client
+  #     context: client
+  #     # docker:
+  #     #   dockerfile: Dockerfile
+  #     # sync:
+  #     #   manual:
+  #     #     - src: '**/*.js'
+  #     #       dest: .
+  #   - image: cygnetops/tickets
+  #     context: tickets
+  #     # docker:
+  #     #   dockerfile: Dockerfile
+  #     # sync:
+  #     #   manual:
+  #     #     - src: 'src/**/*.ts'
+  #     #       dest: .
