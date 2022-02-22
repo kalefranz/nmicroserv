@@ -7,11 +7,11 @@ import { CustomError } from "../errors/custom-error";
 export const errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
 
   if (err instanceof CustomError) {
-    console.error('CustomError:', err);
+    // console.error('CustomError:', err);
     return res.status(err.statusCode).send({ errors: err.serializeErrors() });
   }
 
-  console.error('OtherError:', err);
+  // console.error('OtherError:', err);
   res.status(420).send({
     errors: [{ message: 'Something went wrong' }]
   });
