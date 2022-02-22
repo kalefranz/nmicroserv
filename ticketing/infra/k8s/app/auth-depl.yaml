@@ -15,6 +15,13 @@ spec:
       containers:
         - name: auth
           image: kalefranz/auth:0.0.1
+          env:
+            - name: JWT_KEY
+              value: secret-password
+              # valueFrom:
+              #   secretKeyRef:
+              #     name: jwt-secret
+              #     key: JWT_KEY
 
 ---
 apiVersion: v1
