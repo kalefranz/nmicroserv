@@ -18,7 +18,6 @@ export abstract class Listener<T extends Event> {
 
   constructor(client: Stan) {
     this.client = client;
-
   }
 
   subscriptionOptions() {
