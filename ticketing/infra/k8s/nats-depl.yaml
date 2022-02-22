@@ -1,5 +1,3 @@
-# kubectl port-forward nats-depl-65569cb57c-fvkkb 4222:4222
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,16 +15,22 @@ spec:
       containers:
         - name: nats
           image: nats-streaming:0.17.0
-          args: [
-              '--port=4222',
-              '--http_port=8222',
-              '--hb_interval=5s',
-              '--hb_timeout=5s',
-              '--hb_fail_count=2',
-              '--stan_debug=1', # '-SD',
-              '--cluster_id=ticketing',
+          args:
+            [
+              '-p',
+              '4222',
+              '-m',
+              '8222',
+              '-hbi',
+              '5s',
+              '-hbt',
+              '5s',
+              '-hbf',
+              '2',
+              '-SD',
+              '-cid',
+              'ticketing',
             ]
-
 ---
 apiVersion: v1
 kind: Service
@@ -44,5 +48,3 @@ spec:
       protocol: TCP
       port: 8222
       targetPort: 8222
-# kubectl port-forward pod/nats-depl-7c97cb5fcd-v2d7h 4222:4222
-# kubectl port-forward pod/nats-depl-7c97cb5fcd-v2d7h 8222:8222
