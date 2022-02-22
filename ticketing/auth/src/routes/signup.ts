@@ -15,7 +15,7 @@ router.post('/api/users/signup', [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log("Invalid:", errors.array());
+      // console.log("Invalid:", errors.array());
       throw new RequestValidationError(errors.array());
     }
 
